@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View } from 'react-native'
+import { Text, View, StatusBar } from 'react-native'
 import { Header, Left, Body, Right } from 'native-base';
 import { LinearTextGradient } from 'react-native-text-gradient';
 import { Avatar } from 'react-native-elements';
@@ -7,7 +7,8 @@ import { Avatar } from 'react-native-elements';
 export class FrontierHeader extends Component {
     render() {
         return (
-            <Header transparent>
+            <Header transparent >
+                <StatusBar backgroundColor="black" barStyle="light-content" />
                 <Left style={{ flex: 1 }} />
                 <Body style={{ flex: 1, alignItems: 'center' }}>
                 <LinearTextGradient
@@ -27,7 +28,7 @@ export class FrontierHeader extends Component {
                 </LinearTextGradient>
                 </Body>
                 <Right style={{ flex: 1 }}>
-                    <Avatar size={28} rounded
+                    <Avatar size={24} rounded
 
                             containerStyle={{ backgroundColor: 'gray' }}
                     />

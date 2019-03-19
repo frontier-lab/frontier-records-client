@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {ScrollView} from 'react-native';
+import { ScrollView, StatusBar } from 'react-native';
 import {Container, Header, Content, Body, Title} from 'native-base';
 import {Col, Row, Grid} from 'react-native-easy-grid';
 import {Button, Platform, StyleSheet, Text, View} from 'react-native';
@@ -21,8 +21,9 @@ export default class HomeScreen extends React.Component{
     render() {
         return (
             <Container style={common.backgroundBlack}>
+                
+                <FrontierHeader />
                 <ScrollView>
-                    <FrontierHeader />
                     <Content>
                         <NewAndHot />
                         <RecordList />
