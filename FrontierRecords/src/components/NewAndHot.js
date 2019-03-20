@@ -146,8 +146,8 @@ export class NewAndHot extends Component {
         <ScrollView horizontal={true}>
           <Grid>
             <Row style={styles.row}>
-              {this.state.cardData.map(data => {
-                return (<NewAndHotCard textTitle={data.title} textBody={data.body} />)
+              {this.state.cardData.map( (data, idx) => {
+                return (<NewAndHotCard key={idx} textTitle={data.title} textBody={data.body} />)
               })
               }
             </Row>
