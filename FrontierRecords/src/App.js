@@ -15,6 +15,8 @@ import HomeScreen from './screen/HomeScreen';
 import DetailScreen from './screen/DetailScreen';
 import MusicDetailScreen from './screen/MusicDetailScreen';
 import SettingScreen from './screen/SettingsScreen';
+import AnimateExample from './screen/AnimateExample'
+
 
 import {
     createBottomTabNavigator,
@@ -40,7 +42,7 @@ const iconNameSet = {
 export default createAppContainer(createBottomTabNavigator(
     {
         Home: HomeScreen,
-        Detail: DetailScreen,
+        Detail: AnimateExample,
         MusicDetail: MusicDetailScreen,
         Settings: SettingScreen
     },
