@@ -14,14 +14,12 @@ class Record extends Component {
         this.refs.actionSheet.show();
     }
 
-
     constructor(props) {
         super(props);
         this.state = {
             image: this.props.image,
             buttonColor: this.props.buttonColor,
         }
-        
     }
 
     render() {

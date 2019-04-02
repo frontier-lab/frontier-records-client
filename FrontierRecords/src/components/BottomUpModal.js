@@ -1,6 +1,6 @@
 
 import React, { Component } from "react";
-import { View, Text, ScrollView, Dimensions, Modal, TouchableWithoutFeedback, TouchableOpacity, Animated, Easing } from "react-native";
+import { View, Text, ScrollView, Dimensions, Modal, TouchableWithoutFeedback, TouchableOpacity, Animated, Easing, Platform } from "react-native";
 
 const deviceHeight = Dimensions.get("window").height
 class BottomUpModal extends Component {
@@ -12,7 +12,7 @@ class BottomUpModal extends Component {
         }
         this.sheetHeight = new Animated.Value(0)
         this.sheetY = new Animated.Value(0)
-        this.backdropOpacity = this.sheetY.interpolate({
+        this.backdropOpacity = this.sheetHeight.interpolate({
             inputRange: [0, this.getHeightOnScroll()],
             outputRange: [0, 1],
             extrapolate: 'clamp'
@@ -23,14 +23,14 @@ class BottomUpModal extends Component {
     componentWillMount() {
         this.animatedListenerId = this.sheetY.addListener(
             ({ value }) => {
-                this.scrollSheet.current.scrollTo({ x: 0, y: value, animated: false })
-            });
+                this.scrollSheet.current.getNode().scrollTo({ x: 0, y: value, animated: false })
+        });
     }
 
-    hide = (callback) => {
+    hide = (duration, callback) => {
         Animated.timing(this.sheetY, {
             toValue: 0,
-            duration: this.props.animationDuration,
+            duration: duration? duration : this.props.animationDuration,
             easing: Easing.linear()
         }).start(() => {
             this.setState({ isVisible: false }, () => {
@@ -40,11 +40,11 @@ class BottomUpModal extends Component {
             })
         })
     }
-    show = (callback) => {
+    show = (duration, callback) => {
         this.setState({ isVisible: true }, () => {
             Animated.timing(this.sheetY, {
                 toValue: this.getHeightOnScroll(),
-                duration: this.props.animationDuration,
+                duration: duration? duration : this.props.animationDuration,
                 easing: Easing.elastic()
             }).start(() => {
                 if (callback) {
@@ -57,17 +57,32 @@ class BottomUpModal extends Component {
     getHeightOnScroll = () => Math.min(this.props.contentHeight + this.props.closeButtonHeight, this.props.initHeightOnScroll)
 
     handleScroll = (event) => {
+        const {layoutMeasurement, contentOffset, contentSize} = event.nativeEvent
+        this.sheetY._value = contentOffset.y
+    }
+
+    handlerScrollEnd = (event) => {
         const offsetY = event.nativeEvent.contentOffset.y
-        this.sheetY._value = offsetY
-        this.sheetHeight.setValue(offsetY)
+        const velocityY = event.nativeEvent.velocity.y
+        console.log(offsetY)
+        this.scrollSheet.current.getNode().scrollTo({ x: 0, y: offsetY, animated: false })
+        if (offsetY < (this.getHeightOnScroll()/2) || (Platform.OS === 'ios' ? velocityY < -1 : velocityY > 1) ) { 
+            this.hide(200);
+        } else {
+            this.show(200);
+        }
     }
 
     render() {
+        const onScrollEvent = Animated.event(
+                                [{nativeEvent: { contentOffset: { y: this.sheetHeight } }}],
+                                { listener: this.handleScroll },
+                                { useNativeDriver: true })
         return (
             <Modal transparent visible={this.state.isVisible}>
 
                 <Animated.View style={{ position: "absolute", bottom: 0, backgroundColor: "black", height: this.sheetHeight, width: "100%" }} />
-                <ScrollView scrollEventThrottle={16} onScroll={this.handleScroll} ref={this.scrollSheet} transparent style={{ flex: 1, flexDirection: 'column', paddingBottom: 56 }}>
+                <Animated.ScrollView refreshing={false} onScrollEndDrag={this.handlerScrollEnd} scrollEventThrottle={8} onScroll={onScrollEvent} ref={this.scrollSheet} style={{ flex: 1, flexDirection: 'column', paddingBottom: 56 }}>
                     <Animated.View style={{ height: deviceHeight, width: "100%", opacity: this.backdropOpacity }}>
                         <TouchableWithoutFeedback onPress={() => this.hide()} style={{ flex: 1 }}>
                             <View style={{ backgroundColor: this.props.backdropColor, opacity: this.props.backdropOpacity, flex: 1 }}>
@@ -84,7 +99,7 @@ class BottomUpModal extends Component {
                             </View>
                         </TouchableOpacity>
                     </View>
-                </ScrollView>
+                </Animated.ScrollView>
             </Modal>
         );
     }

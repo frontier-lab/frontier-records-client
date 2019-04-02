@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { Grid, Content, Card, CardItem, Body, Row, Col } from 'native-base';
-import { ActionSheetCustom as ActionSheet } from 'react-native-actionsheet'
 import { Avatar, Icon } from 'react-native-elements';
 import Icons from 'react-native-vector-icons/AntDesign';
 import BottomUpModal from './BottomUpModal';
@@ -264,9 +263,6 @@ class ShareActionSheetTitle extends Component {
 }
 
 
-class BackgroundedView extends Component {
-    render() { return (<View style={{ height: "100%", width: "100%", backgroundColor: "#000000" }}>{this.props.children}</View>) }
-}
 class TouchableView extends Component {
     render() { return (<TouchableOpacity onPress={this.props.onPress} style={{ height: "100%", width: "100%", justifyContent: "center", alignItems: "center" }}>{this.props.children}</TouchableOpacity>) }
 }
