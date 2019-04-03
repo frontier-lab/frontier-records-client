@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, Platform } from 'react-native';
 import { Grid, Content, Card, CardItem, Body, Row, Col } from 'native-base';
 import { Avatar, Icon } from 'react-native-elements';
 import Icons from 'react-native-vector-icons/AntDesign';
@@ -48,9 +48,15 @@ export default class MusicActionSheet extends Component {
     }
 
     hide = () => {
-        this.hideOptionSheet(() => {
+        if (this.state.showShare) {
+            this.optionModal.current.transformContentHeight(516, 400)
             this.setState({showShare: false})
-        })
+        } else {
+            this.hideOptionSheet(() => {
+                this.setState({showShare: false})
+            })
+        }
+        
     }
 
     transformToShareSheet = () => {
@@ -103,7 +109,7 @@ export default class MusicActionSheet extends Component {
                         <Row style={{ height: 56 }}>
                             <TouchableOpacity onPress={() => this.hide()} style={{ flex: 1, justifyContent: "center", alignItems: "center"}}>
                                 <View style={{flex: 1, justifyContent: "center", alignItems: "center",}}>
-                                    <Text style={{ opacity: 0.7, fontSize: 16, fontWeight: "normal", fontStyle: "normal", letterSpacing: -0.47, color: "#ffffff" }}>닫기</Text>
+                                    <Text allowFontScaling={false} style={{ opacity: 0.7, fontSize: 16, fontWeight: "normal", fontStyle: "normal", letterSpacing: -0.47, color: "#ffffff" }}>닫기</Text>
                                 </View>
                             </TouchableOpacity>
                         </Row>
@@ -132,6 +138,7 @@ class MusicActionSheetTitle extends Component {
                             marginBottom: 7
                         }}>
                             <Text 
+                                allowFontScaling={false}
                                 numberOfLines={1}
                                 style={{
                                 fontSize: 18,
@@ -145,6 +152,7 @@ class MusicActionSheetTitle extends Component {
                             height: 17,
                         }}>
                             <Text 
+                                allowFontScaling={false}
                                 numberOfLines={1}
                                 style={{
                                 fontSize: 14,
@@ -168,10 +176,9 @@ class ShareActionSheetTitle extends Component {
 
     render() {
         return (
-            <Col style={{ marginTop: 30 }} >
-                <Text style={{
+            <Col style={{ marginTop: 30, justifyContent: "center" }} >
+                <Text allowFontScaling={false} style={{
                     marginLeft: 24,
-                    height: 21,
                     fontSize: 18,
                     fontWeight: "bold",
                     fontStyle: "normal",
@@ -185,7 +192,7 @@ class ShareActionSheetTitle extends Component {
                         <TouchableOpacity>
                             <Avatar size={55} source={require("../assets/img/icSoundcloud.png")} rounded />
                         </TouchableOpacity>
-                        <Text style={{
+                        <Text allowFontScaling={false} style={{
                             marginTop: 8,
                             height: 12,
                             opacity: 0.7,
@@ -203,7 +210,7 @@ class ShareActionSheetTitle extends Component {
                         <TouchableOpacity>
                             <Avatar size={55} source={require("../assets/img/icKakaotalk.png")} rounded />
                         </TouchableOpacity>
-                        <Text style={{
+                        <Text allowFontScaling={false} style={{
                             marginTop: 8,
                             height: 12,
                             opacity: 0.7,
@@ -221,7 +228,7 @@ class ShareActionSheetTitle extends Component {
                         <TouchableOpacity>
                             <Avatar size={55} source={require("../assets/img/icInstagram.png")} rounded />
                         </TouchableOpacity>
-                        <Text style={{
+                        <Text allowFontScaling={false} style={{
                             marginTop: 8,
                             height: 12,
                             opacity: 0.7,
@@ -239,7 +246,7 @@ class ShareActionSheetTitle extends Component {
                         <TouchableOpacity>
                             <Avatar size={55} source={require("../assets/img/icFacebook.png")} rounded />
                         </TouchableOpacity>
-                        <Text style={{
+                        <Text allowFontScaling={false} style={{
                             marginTop: 8,
                             height: 12,
                             opacity: 0.7,
@@ -257,7 +264,7 @@ class ShareActionSheetTitle extends Component {
                         <TouchableOpacity>
                             <Avatar size={55} source={require("../assets/img/icLink.png")} rounded />
                         </TouchableOpacity>
-                        <Text style={{
+                        <Text allowFontScaling={false} style={{
                             marginTop: 8,
                             height: 12,
                             opacity: 0.7,
@@ -291,7 +298,7 @@ class ActionSheetContainer extends Component {
             <TouchableView onPress={this.props.onPress}>
                 <Row style={{ width: "100%", justifyContent: "flex-start", alignItems: "center" }}>
                     <Avatar size={32} containerStyle={{ backgroundColor: "#d8d8d8", opacity: 1, marginLeft: 16, marginRight: 12 }} />
-                    <Text style={{ fontSize: 16, fontWeight: "normal", fontStyle: "normal", letterSpacing: -0.47, color: "#ffffff" }}>{this.props.title}</Text>
+                    <Text allowFontScaling={false} style={{ fontSize: 16, fontWeight: "normal", fontStyle: "normal", letterSpacing: -0.47, color: "#ffffff" }}>{this.props.title}</Text>
                 </Row>
             </TouchableView>
         )

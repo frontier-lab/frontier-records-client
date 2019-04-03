@@ -24,10 +24,10 @@ class NewAndHotCard extends Component {
           </CardItem>
           <Row style={styles.cardFooter}>
             <Col>
-              <Text style={styles.cardFooterTextTitle}>
+              <Text allowFontScaling={false} style={styles.cardFooterTextTitle}>
                 {this.state.textTitle}
               </Text>
-              <Text style={styles.cardFooterTextBody}>
+              <Text allowFontScaling={false} style={styles.cardFooterTextBody}>
                 {this.state.textBody}
               </Text>
             </Col>
@@ -73,7 +73,7 @@ export class NewAndHot extends Component {
   render() {
     return (
       <Container style={[commonStyle.backgroundBlack, styles.container]}>
-        <Text h2 style={[styles.headerText]}>
+        <Text allowFontScaling={false} h2 style={[styles.headerText]}>
           NEW & HOT
             </Text>
         <ScrollView horizontal={true}>

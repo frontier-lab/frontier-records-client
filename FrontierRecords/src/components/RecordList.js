@@ -50,7 +50,7 @@ class Record extends Component {
                                     <Col style={common.flex2}>
                                         <Row style={styles.descArtist}>
                                             <Avatar source={this.props.image} size={constant.descArtistAvatarSize} rounded containerStyle={common.backgroundGray} />
-                                            <Text style={styles.descArtistName}>
+                                            <Text allowFontScaling={false} style={styles.descArtistName}>
                                                 {this.props.artist}
                                             </Text>
                                         </Row>
@@ -64,12 +64,12 @@ class Record extends Component {
                                     </Col>
                                 </Row>
                                 <Row style={styles.descTitleContainer}>
-                                    <Text style={styles.descTitle}>
+                                    <Text allowFontScaling={false} style={styles.descTitle}>
                                     {this.props.title}
                                     </Text>
                                 </Row>
                                 <Row style={styles.descHashTagContainer}>
-                                    <Text style={styles.descHashTag}>
+                                    <Text allowFontScaling={false} style={styles.descHashTag}>
                                         #Hiphop&Rap #ArtinbStudio
                                     </Text>
                                 </Row>

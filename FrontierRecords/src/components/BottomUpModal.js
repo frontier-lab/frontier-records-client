@@ -11,8 +11,8 @@ class BottomUpModal extends Component {
             isVisible: false,
         }
         this.contentHeight = new Animated.Value(this.props.contentHeight);
-        this.contentOffsetY = new Animated.Value(0);
-        this.backgroundContentHeight = new Animated.Value(0);
+        this.contentOffsetY = new Animated.Value(0.01);
+        this.backgroundContentHeight = new Animated.Value(0.01);
         this.backdropOpacity = this.backgroundContentHeight.interpolate({
             inputRange: [0, this.contentHeight._value],
             outputRange: [0, 1],
@@ -23,11 +23,10 @@ class BottomUpModal extends Component {
 
     componentWillMount() {
         this.contentOffsetY.addListener( ({ value }) => {
-            console.log(this.backgroundContentHeight._value, this.backdropOpacity.__getValue())
-            this.scrollSheet.current.getNode().scrollTo({ x: 0, y: value, animated: false });
+            this.scrollSheet.current.getNode().scrollTo({ x: 0, y: value + (Platform.OS === 'ios' ? 0 : 22), animated: false });
         });
         this.contentHeight.addListener( ({ value }) => {
-                this.backgroundContentHeight.setValue(value)
+            this.backgroundContentHeight.setValue(value)
         });
     }
 
@@ -35,7 +34,8 @@ class BottomUpModal extends Component {
         Animated.timing(this.contentOffsetY, {
             toValue: 0,
             duration: duration? duration : this.props.animationDuration,
-            easing: this.props.closeEasing
+            easing: this.props.closeEasing,
+            useNativeDriver: Platform.OS === 'ios'? false : true
         }).start(() => {
             this.setState({ isVisible: false }, () => {
                 this.contentHeight.setValue(this.props.contentHeight)
@@ -51,7 +51,8 @@ class BottomUpModal extends Component {
             Animated.timing(this.contentOffsetY, {
                 toValue: this.contentHeight._value,
                 duration: duration? duration : this.props.animationDuration,
-                easing: this.props.showEasing
+                easing: this.props.showEasing,
+                useNativeDriver: Platform.OS === 'ios'? false : true
             }).start(() => {
                 if (callback) {
                     callback()
@@ -68,9 +69,8 @@ class BottomUpModal extends Component {
 
     handlerScrollEnd = (event) => {
         const offsetY = event.nativeEvent.contentOffset.y
-        this.contentOffsetY._value = event.nativeEvent.contentOffset.y
         const velocityY = event.nativeEvent.velocity.y
-        console.log(offsetY)
+        this.contentOffsetY._value = event.nativeEvent.contentOffset.y
         if (offsetY < (this.contentHeight._value/2) || (Platform.OS === 'ios' ? velocityY < -1 : velocityY > 1) ) { 
             this.hide(200);
         } else if (offsetY < this.contentHeight._value) {
@@ -83,12 +83,13 @@ class BottomUpModal extends Component {
             Animated.timing(this.contentOffsetY, {
                 toValue: number,
                 duration: duration? duration : this.props.animationDuration,
-                easing: this.props.showEasing
+                easing: this.props.showEasing,
+                useNativeDriver: Platform.OS === 'ios'? false : true
             }),
             Animated.timing(this.contentHeight, {
                 toValue: number,
                 duration: duration? duration : this.props.animationDuration,
-                easing: Easing.linear()
+                easing: Easing.linear(),
             })
         ]).start()
     }
@@ -101,7 +102,7 @@ class BottomUpModal extends Component {
         return (
             <Modal transparent visible={this.state.isVisible}>
 
-                <Animated.View style={{ position: "absolute", bottom: 0, backgroundColor: "black", height: this.backgroundContentHeight, width: "100%" }} />
+                {Platform.OS === 'ios'? <Animated.View style={{ position: "absolute", bottom: 0, backgroundColor: "black", height: this.backgroundContentHeight, width: "100%" }} /> : <View />}
                 <Animated.ScrollView refreshing={false} onScrollEndDrag={this.handlerScrollEnd} scrollEventThrottle={8} onScroll={onScrollEvent} ref={this.scrollSheet} style={{ flex: 1, flexDirection: 'column', paddingBottom: 56 }}>
                     <Animated.View style={{ height: deviceHeight, width: "100%", opacity: this.backdropOpacity }}>
                         <TouchableWithoutFeedback onPress={() => this.hide()} style={{ flex: 1 }}>

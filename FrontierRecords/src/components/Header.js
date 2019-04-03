@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
-import { Text, View, StatusBar } from 'react-native'
+import { Text, View, StatusBar, PixelRatio } from 'react-native'
 import { Header, Left, Body, Right } from 'native-base';
 import { LinearTextGradient } from 'react-native-text-gradient';
 import { Avatar } from 'react-native-elements';
 
 export class FrontierHeader extends Component {
+
     render() {
         return (
             <Header transparent >
@@ -20,6 +21,7 @@ export class FrontierHeader extends Component {
                         letterSpacing: 0,
                         textAlign: 'center'
                     }}
+                    allowFontScaling={false}
                     locations={[0, 1]}
                     colors={['#424bff', '#b700ff']}
                     start={{ x: 0, y: 0 }}
