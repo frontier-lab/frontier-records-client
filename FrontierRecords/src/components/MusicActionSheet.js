@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { Grid, Content, Card, CardItem, Body, Row, Col } from 'native-base';
 import { Avatar, Icon } from 'react-native-elements';
@@ -9,6 +9,9 @@ export default class MusicActionSheet extends Component {
 
     constructor(props) {
         super(props)
+        this.state = {
+            showShare: false
+        }
         this.optionModal = React.createRef()
         this.shareModal = React.createRef()
         this.options = [{
@@ -19,7 +22,7 @@ export default class MusicActionSheet extends Component {
         {
             title: "공유하기",
             style: { opacity: 1, backgroundColor: "#d8d8d8" },
-            onPress: this.showShareSheet
+            onPress: this.transformToShareSheet
         },
         {
             title: "재생목록에 추가",
@@ -39,16 +42,23 @@ export default class MusicActionSheet extends Component {
     }
 
     show = () => {
-        this.showOptionSheet()
+        this.setState({showShare: false}, () => {
+            this.showOptionSheet()
+        })
     }
 
     hide = () => {
-        this.hideOptionSheet()
+        this.hideOptionSheet(() => {
+            this.setState({showShare: false})
+        })
+    }
+
+    transformToShareSheet = () => {
+        this.optionModal.current.transformContentHeight(236, 400)
+        this.setState({showShare: true})
     }
     showOptionSheet = () => this.optionModal.current.show()
     hideOptionSheet = () => this.optionModal.current.hide()
-    showShareSheet = () => this.optionModal.current.hide(400, () => this.shareModal.current.show())
-    hideShareSheet = () => this.shareModal.current.hide()
 
     renderOptions = () => {
         return this.options.map((data, idx) => {
@@ -60,39 +70,45 @@ export default class MusicActionSheet extends Component {
         })
     }
 
+    renderSheet = () => {
+        return this.state.showShare ? 
+            <Row style={{ height: 180, }}>
+                <ShareActionSheetTitle avatar={this.props.image} title={this.props.title} artist={this.props.artist} />
+            </Row>
+        :   <Fragment>
+                <Row style={{ height: 130 }}>
+                    <MusicActionSheetTitle avatar={this.props.image} title={this.props.title} artist={this.props.artist} />
+                </Row>
+                <Row style={{ height: 330 }}>
+                    <Col>{this.renderOptions()}</Col>
+                </Row>
+            </Fragment>
+
+    }
+
+
     render() {
+        
         return (
             <View>
                 <BottomUpModal
                     ref={this.optionModal}
-                    contentHeight={460}
+                    contentHeight={516}
                     initHeightOnScroll={516}
                     backdropOpacity={0.8}
                     backdropColor={"#000000"}
-                    animationDuration={350}
-                >
+                    animationDuration={450}>
                     <View style={{ flex: 1 }}>
-                        <Row style={{ height: 130 }}>
-                            <MusicActionSheetTitle avatar={this.props.image} title={this.props.title} artist={this.props.artist} />
-                        </Row>
-                        <Row style={{ height: 330 }}>
-                            <Col>{this.renderOptions()}</Col>
+                        {this.renderSheet()}
+                        <Row style={{ height: 56 }}>
+                            <TouchableOpacity onPress={() => this.hide()} style={{ flex: 1, justifyContent: "center", alignItems: "center"}}>
+                                <View style={{flex: 1, justifyContent: "center", alignItems: "center",}}>
+                                    <Text style={{ opacity: 0.7, fontSize: 16, fontWeight: "normal", fontStyle: "normal", letterSpacing: -0.47, color: "#ffffff" }}>닫기</Text>
+                                </View>
+                            </TouchableOpacity>
                         </Row>
                     </View>
                 </BottomUpModal>
-                <BottomUpModal
-                        ref={this.shareModal}
-                        contentHeight={180}
-                        backdropOpacity={0.8}
-                        backdropColor={"#000000"}
-                        animationDuration={450}
-                        closeButtonText={"돌아가기"}
-                    >
-                        <View style={{ flex: 1 }}>
-                            <ShareActionSheetTitle avatar={this.props.image} title={this.props.title} artist={this.props.artist} />
-                        </View>
-                </BottomUpModal>
-
             </View>
         )
     }
