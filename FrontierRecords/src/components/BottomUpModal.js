@@ -31,7 +31,7 @@ class BottomUpModal extends Component {
         Animated.timing(this.sheetY, {
             toValue: 0,
             duration: duration? duration : this.props.animationDuration,
-            easing: Easing.linear()
+            easing: this.props.closeEasing
         }).start(() => {
             this.setState({ isVisible: false }, () => {
                 if (callback) {
@@ -45,7 +45,7 @@ class BottomUpModal extends Component {
             Animated.timing(this.sheetY, {
                 toValue: this.getHeightOnScroll(),
                 duration: duration? duration : this.props.animationDuration,
-                easing: Easing.elastic()
+                easing: this.props.showEasing
             }).start(() => {
                 if (callback) {
                     callback()
@@ -63,12 +63,13 @@ class BottomUpModal extends Component {
 
     handlerScrollEnd = (event) => {
         const offsetY = event.nativeEvent.contentOffset.y
+        this.sheetY._value = event.nativeEvent.contentOffset.y
         const velocityY = event.nativeEvent.velocity.y
         console.log(offsetY)
         this.scrollSheet.current.getNode().scrollTo({ x: 0, y: offsetY, animated: false })
         if (offsetY < (this.getHeightOnScroll()/2) || (Platform.OS === 'ios' ? velocityY < -1 : velocityY > 1) ) { 
             this.hide(200);
-        } else {
+        } else if (offsetY < this.getHeightOnScroll()) {
             this.show(200);
         }
     }
@@ -113,7 +114,9 @@ BottomUpModal.defaultProps = {
     closeButtonStyle: { opacity: 0.7, fontSize: 16, fontWeight: "normal", fontStyle: "normal", letterSpacing: -0.47, color: "#ffffff" },
     backdropOpacity: 0.5,
     backdropColor: 'gray',
-    animationDuration: 400
+    animationDuration: 400,
+    showEasing: Easing.bezier(.28,.6,.32,.98),
+    closeEasing: Easing.linear()
 }
 
 export default BottomUpModal;

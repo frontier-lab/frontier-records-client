@@ -13,27 +13,27 @@ export default class MusicActionSheet extends Component {
         this.shareModal = React.createRef()
         this.options = [{
             title: "가사보기",
-            style: { opacity: 0.1, backgroundColor: "#d8d8d8" },
+            style: { opacity: 1, backgroundColor: "#d8d8d8" },
             onPress: () => alert("test1")
         },
         {
             title: "공유하기",
-            style: { opacity: 0.15, backgroundColor: "#d8d8d8" },
+            style: { opacity: 1, backgroundColor: "#d8d8d8" },
             onPress: this.showShareSheet
         },
         {
             title: "재생목록에 추가",
-            style: { opacity: 0.1, backgroundColor: "#d8d8d8" },
+            style: { opacity: 1, backgroundColor: "#d8d8d8" },
             onPress: () => alert("test3")
         },
         {
             title: "내 플레이리스트에 추가",
-            style: { opacity: 0.15, backgroundColor: "#d8d8d8" },
+            style: { opacity: 1, backgroundColor: "#d8d8d8" },
             onPress: () => alert("test4")
         },
         {
             title: "신고하기",
-            style: { opacity: 0.1, backgroundColor: "#d8d8d8" },
+            style: { opacity: 1, backgroundColor: "#d8d8d8" },
             onPress: () => alert("test5")
         }]
     }
@@ -47,7 +47,7 @@ export default class MusicActionSheet extends Component {
     }
     showOptionSheet = () => this.optionModal.current.show()
     hideOptionSheet = () => this.optionModal.current.hide()
-    showShareSheet = () => this.shareModal.current.show()
+    showShareSheet = () => this.optionModal.current.hide(400, () => this.shareModal.current.show())
     hideShareSheet = () => this.shareModal.current.hide()
 
     renderOptions = () => {
@@ -69,7 +69,7 @@ export default class MusicActionSheet extends Component {
                     initHeightOnScroll={516}
                     backdropOpacity={0.8}
                     backdropColor={"#000000"}
-                    animationDuration={450}
+                    animationDuration={350}
                 >
                     <View style={{ flex: 1 }}>
                         <Row style={{ height: 130 }}>
@@ -79,7 +79,8 @@ export default class MusicActionSheet extends Component {
                             <Col>{this.renderOptions()}</Col>
                         </Row>
                     </View>
-                    <BottomUpModal
+                </BottomUpModal>
+                <BottomUpModal
                         ref={this.shareModal}
                         contentHeight={180}
                         backdropOpacity={0.8}
@@ -90,7 +91,6 @@ export default class MusicActionSheet extends Component {
                         <View style={{ flex: 1 }}>
                             <ShareActionSheetTitle avatar={this.props.image} title={this.props.title} artist={this.props.artist} />
                         </View>
-                    </BottomUpModal>
                 </BottomUpModal>
 
             </View>
@@ -274,10 +274,9 @@ class ActionSheetContainer extends Component {
         return (
             <TouchableView onPress={this.props.onPress}>
                 <Row style={{ width: "100%", justifyContent: "flex-start", alignItems: "center" }}>
-                    <Avatar size={32} containerStyle={{ backgroundColor: "#d8d8d8", opacity: 0.1, marginLeft: 16, marginRight: 12 }} />
+                    <Avatar size={32} containerStyle={{ backgroundColor: "#d8d8d8", opacity: 1, marginLeft: 16, marginRight: 12 }} />
                     <Text style={{ fontSize: 16, fontWeight: "normal", fontStyle: "normal", letterSpacing: -0.47, color: "#ffffff" }}>{this.props.title}</Text>
                 </Row>
-                <OpacityView style={this.props.style} />
             </TouchableView>
         )
     }

@@ -20,14 +20,14 @@ class Example extends Component {
 
   render() {
     return (
-      <View style={{flex: 1, justifyContent: "center", alignItems: "center"}}>
-        <View style={{justifyContent: "center", alignItems: "center", backgroundColor: "red", width: "100%", height: "100%"}}>
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <View style={{ justifyContent: "center", alignItems: "center", backgroundColor: "red", width: "100%", height: "100%" }}>
           <Button onPress={this.show}>testtest</Button>
         </View>
         <BottomUpModal ref={this.bottomUpModal}>
-        <View style={{justifyContent: "center", alignItems: "center", backgroundColor: "red", width: "100%", height: "100%"}}>
-          <Button onPress={this.show2}>testtest</Button>
-        </View>
+          <View style={{ justifyContent: "center", alignItems: "center", backgroundColor: "red", width: "100%", height: "100%" }}>
+            <Button onPress={this.show2}>testtest</Button>
+          </View>
           <BottomUpModal ref={this.bottomUpModal2} contentHeight={300}>
           </BottomUpModal>
         </BottomUpModal>
