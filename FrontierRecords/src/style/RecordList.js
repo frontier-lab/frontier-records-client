@@ -2,31 +2,31 @@ import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
     recordContainer: {
-        height: 363, 
+        height: 426, 
         alignItems: 'center', 
-        marginTop: 20, 
+        marginTop: 10,
+
     },
     recordHr: {
         position: 'absolute',
-        top: 260,
+        bottom: 5,
         alignSelf: 'center',
-        width: '90%',
-        marginLeft: 20,
-        marginRight: 20,
+        width: '100%',
         height: 1,
         opacity: 0.2,
         borderStyle: "solid",
-        borderBottomWidth: 1,
+        borderBottomWidth: 2,
         borderBottomColor: "#ffffff"
     },
     discContainer: {
-        height: 250
+        height: 280,
     },
     discWrap: {
         width: 250,
         height: 250, 
         justifyContent: 'center', 
         alignItems: 'center', 
+        backgroundColor: 'transparent'
     },
     discImage: { 
         width: 250, 
@@ -36,7 +36,7 @@ export const styles = StyleSheet.create({
     discInfoBtn: { 
         position: 'absolute', 
         color: 'white', 
-        top: 0, 
+        top: 20, 
         right: 20, 
     },
     descContainer: { 
@@ -45,9 +45,9 @@ export const styles = StyleSheet.create({
         marginTop: 0
     },
     descArtistContainer: { 
-        height: 32, 
+        height: 20, 
         justifyContent: 'flex-start', 
-        alignItems: 'center' 
+        alignItems: 'flex-end' 
     },
     descArtist: { 
         justifyContent: 'flex-start', 
@@ -55,10 +55,8 @@ export const styles = StyleSheet.create({
     },
     descArtistName: {
         marginLeft: 6,
-        width: 200,
-        height: 16,
-        opacity: 0.5,
-        fontSize: 13,
+        height: 14,
+        fontSize: 14,
         fontWeight: "normal",
         fontStyle: "normal",
         letterSpacing: 0,
@@ -73,10 +71,9 @@ export const styles = StyleSheet.create({
         marginLeft: 20 
     },
     descTitleContainer: { 
-        backgroundColor: 'black', 
-        height: 17, 
+        height: 26, 
         justifyContent: 'flex-start', 
-        alignItems: 'center' 
+        alignItems:'flex-end'
     },
     descTitle: {
         opacity: 0.8,
@@ -87,25 +84,27 @@ export const styles = StyleSheet.create({
         color: "#ffffff"
     },
     descHashTagContainer: {
-        height: 16, 
+        height: 30,
         justifyContent: 'flex-start', 
-        alignItems: 'center' 
+        alignItems: 'flex-start' 
     },
     descHashTag: {
-        height: 16,
-        opacity: 0.4,
+        marginLeft: 6,
+        marginRight: 6,
+        height: 24,
         fontSize: 13,
         fontWeight: "normal",
         fontStyle: "normal",
         letterSpacing: 0,
-        color: "#ffffff"
+        textAlign: "center",
+        
     }
 })
 
 export const constant = {
     discPlayBtnSize: 55,
     discInfoBtnSize: 32,
-    descArtistAvatarSize: 20,
+    descArtistAvatarSize: 30,
     descIconSize: 32
 
 

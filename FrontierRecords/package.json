@@ -26,6 +26,7 @@
     "react-test-renderer": "16.6.3",
     "reactotron-react-native": "^3.2.1"
   },
+  "rnpm": { "assets": [ "resources/fonts" ] },
   "jest": {
     "preset": "react-native"
   }

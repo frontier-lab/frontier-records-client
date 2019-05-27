@@ -9,7 +9,7 @@
 
 import React, {Component} from 'react';
 import {Button, Platform, StyleSheet, Text, View} from 'react-native';
-import icons from 'react-native-vector-icons/AntDesign';
+import icons from './CustomIcon';
 
 import HomeScreen from './screen/HomeScreen';
 import DetailScreen from './screen/DetailScreen';
@@ -29,14 +29,14 @@ const platform = Platform.select({
 });
 
 const iconNameSet = {
-    Home: "playcircleo",
-    HomeActive: "play",
-    Detail: "hearto",
-    DetailActive: "heart",
-    MusicDetail: "smileo",
-    MusicDetailActive: "smile-circle",
-    Settings: "staro",
-    SettingsActive: "star",
+    Home: "ic_home_default",
+    HomeActive: "ic_home_selected",
+    Detail: "ic_search_default",
+    DetailActive: "ic_search_default",
+    MusicDetail: "ic_noti_default",
+    MusicDetailActive: "ic_noti_selected",
+    Settings: "ic_my_default",
+    SettingsActive: "ic_my_selected",
 }
 
 export default createAppContainer(createBottomTabNavigator(
@@ -65,7 +65,7 @@ export default createAppContainer(createBottomTabNavigator(
                 }
 
                 // You can return any component that you like here!
-                return <IconComponent name={iconName} size={25} color={tintColor} />;
+                return <IconComponent name={iconName} size={34} color={tintColor} />;
             },
         }),
         tabBarOptions: {
