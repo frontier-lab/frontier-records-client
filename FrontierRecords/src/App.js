@@ -9,6 +9,7 @@
 
 import React, {Component} from 'react';
 import {Button, Platform, StyleSheet, Text, View} from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 import icons from './CustomIcon';
 
 import HomeScreen from './screen/HomeScreen';

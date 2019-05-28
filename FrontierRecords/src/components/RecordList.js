@@ -92,10 +92,8 @@ class Record extends Component {
                                     </View>
                                 )
                             })}
-                            
                         </Row>
                     </Col>
-                    
                 </Row>
         )
     }
