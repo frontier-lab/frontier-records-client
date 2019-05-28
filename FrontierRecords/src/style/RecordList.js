@@ -2,31 +2,28 @@ import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
     recordContainer: {
-        height: 426, 
+        backgroundColor: 'transparent',
         alignItems: 'center', 
         marginTop: 10,
-
-    },
-    recordHr: {
-        position: 'absolute',
-        bottom: 5,
-        alignSelf: 'center',
-        width: '100%',
-        height: 1,
-        opacity: 0.2,
-        borderStyle: "solid",
-        borderBottomWidth: 2,
-        borderBottomColor: "#ffffff"
     },
     discContainer: {
-        height: 280,
+        backgroundColor: 'transparent',
+        justifyContent: 'center', 
+        height:280, 
+        width: '100%', 
+        
     },
     discWrap: {
+        backgroundColor: 'transparent', 
+        justifyContent:'flex-end', 
+        alignItems: 'center'
+    },
+    discImageWrap: {
+        backgroundColor: 'transparent',
         width: 250,
         height: 250, 
         justifyContent: 'center', 
         alignItems: 'center', 
-        backgroundColor: 'transparent'
     },
     discImage: { 
         width: 250, 
@@ -39,56 +36,118 @@ export const styles = StyleSheet.create({
         top: 20, 
         right: 20, 
     },
-    descContainer: { 
-        marginLeft: 24, 
-        marginRight: 20, 
-        marginTop: 0
+    uploadInfoWrap: {
+        backgroundColor: 'transparent', 
+        position:'absolute', 
+        bottom:0, 
+        paddingRight: 20, 
+        paddingLeft: 20,
+        height: 28, 
+        width: '100%', 
     },
-    descArtistContainer: { 
-        height: 20, 
-        justifyContent: 'flex-start', 
-        alignItems: 'flex-end' 
+    uploadInfoText: {
+        width: 80,
+        opacity: 0.6,
+        fontSize: 9,
+        fontWeight: "normal",
+        fontStyle: "normal",
+        letterSpacing: 0,
+        color: "#ffffff"
     },
-    descArtist: { 
+    discHr: {
+        position: 'absolute',
+        bottom: 5,
+        alignSelf: 'center',
+        width: '100%',
+        height: 1,
+        opacity: 0.2,
+        borderStyle: "solid",
+        borderBottomWidth: 1,
+        borderBottomColor: "#ffffff"
+    },
+    artistLikeShareContainer: {
+        backgroundColor: 'transparent', 
+        height: 44, 
+        width: '100%', 
+        paddingLeft: 20, 
+        paddingRight: 20
+    },
+    artistWrap: { 
+        backgroundColor: 'transparent',
         justifyContent: 'flex-start', 
         alignItems: 'center'
     },
-    descArtistName: {
+    artistText: {
         marginLeft: 6,
-        height: 14,
         fontSize: 14,
         fontWeight: "normal",
         fontStyle: "normal",
         letterSpacing: 0,
         color: "#ffffff"
     },
-    descIconWrap: { 
+    likeShareWrap: {
+        backgroundColor: 'transparent', 
         justifyContent: 'flex-end', 
-        alignItems: 'center' 
+        alignItems: 'center'
     },
-    descIcon: { 
+    likeShareIcon: { 
         color: 'white', 
         marginLeft: 20 
     },
-    descTitleContainer: { 
-        height: 26, 
-        justifyContent: 'flex-start', 
-        alignItems:'flex-end'
+    likeCountTitleContainer: {
+        backgroundColor: 'transparent', 
+        width: '100%', 
+        paddingLeft: 20,
+        paddingRight: 20
     },
-    descTitle: {
-        opacity: 0.8,
-        fontSize: 14,
-        fontWeight: "bold",
+    likeCountContainer: { 
+        height: 20, 
+        justifyContent: 'flex-start', 
+        alignItems: 'flex-end' 
+    },
+    likeCountText: {
+        fontSize: 10,
+        fontWeight: "normal",
         fontStyle: "normal",
         letterSpacing: 0,
         color: "#ffffff"
     },
-    descHashTagContainer: {
-        height: 30,
+    likeCountCount: {
+        fontWeight: 'bold', 
+        paddingLeft: 4
+    },
+    titleContainer: { 
+        height: 26, 
+        justifyContent: 'flex-start', 
+        alignItems:'flex-end'
+    },
+    titleText: {
+        fontSize: 15,
+        fontWeight: "bold",
+        fontStyle: "normal",
+        lineHeight: 22,
+        letterSpacing: 0,
+        color: "#ffffff"
+    },
+    hashTagContainer: {
+        backgroundColor: 'transparent', 
+        width: '100%',
+        paddingLeft: 20,
+        paddingRight: 20,
+        flexWrap: "wrap",
         justifyContent: 'flex-start', 
         alignItems: 'flex-start' 
     },
-    descHashTag: {
+    hashTagWrap: {
+        backgroundColor: 'rgba(255, 255, 255, 0.1)',
+        marginTop: 2,
+        marginRight: 4,
+        height: 24,
+        borderRadius: 12,
+    },
+    hashTagText: {
+        marginTop: 4,
+        marginBottom: 4,
         marginLeft: 6,
         marginRight: 6,
         height: 24,
@@ -97,15 +156,18 @@ export const styles = StyleSheet.create({
         fontStyle: "normal",
         letterSpacing: 0,
         textAlign: "center",
-        
+        alignItems: "center",
+        justifyContent: "center",
+        flex: 1,
+        color: "rgba(255,255,255,0.7)"
     }
 })
 
 export const constant = {
     discPlayBtnSize: 55,
     discInfoBtnSize: 32,
-    descArtistAvatarSize: 30,
-    descIconSize: 32
+    artistAvatarSize: 30,
+    likeShareIconSize: 32
 
 
 }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, Image } from 'react-native';
-import { Grid, Row, Col } from 'native-base';
+import { Grid, Row, Col, Content } from 'native-base';
 import { Avatar } from 'react-native-elements';
 import Icons from '../CustomIcon';
 import common from '../style/common';
@@ -28,11 +28,12 @@ class Record extends Component {
                     <MusicActionSheet 
                     image={this.props.image} title={this.props.title} artist={this.props.artist}
                     ref={"actionSheet"} />
-                    <Col style={{...common.backgroundBlack, ...styles.recordContainer}}>
-                        <Row style={{justifyContent: 'center', height:280, width: '100%', backgroundColor: 'transparent' }}>
+                    <Col style={{...styles.recordContainer}}>
+                        {/* 디스크 이미지 업로드 시간 HR */}
+                        <Row style={styles.discContainer}>
                             {/* 디스크 이미지 */}
-                            <Col style={{backgroundColor: 'transparent', justifyContent:'flex-end', alignItems: 'center'}}>
-                                <Col style={styles.discWrap}>
+                            <Col style={styles.discWrap}>
+                                <Col style={styles.discImageWrap}>
                                     <Image
                                         source={this.state.image}
                                         style={styles.discImage} />
@@ -46,83 +47,52 @@ class Record extends Component {
                             name={'ic_more'} size={constant.discInfoBtnSize} style={styles.discInfoBtn} />
 
                             {/* 시간 + HR */}
-                            <Col style={{position:'absolute', bottom:0, height: 28, width: '100%', backgroundColor: 'transparent', paddingRight: 20, paddingLeft: 20}}>
-                                <Text style={{
-                                    width: 80,
-                                    height: 10,
-                                    opacity: 0.6,
-                                    fontSize: 9,
-                                    fontWeight: "normal",
-                                    fontStyle: "normal",
-                                    letterSpacing: 0,
-                                    color: "#ffffff"
-                                }}>
+                            <Col style={styles.uploadInfoWrap}>
+                                <Text style={styles.uploadInfoText}>
                                     1시간 전
                                 </Text>
-                                <View style={styles.recordHr} />
+                                <View style={styles.discHr} />
                             </Col>
                         </Row>
                         {/* 가수 이름 좋아요 공유하기 */}
-                        <Row style={{backgroundColor: 'transparent', height: 44, width: '100%', paddingLeft: 20, paddingRight: 20}}>
-                            <Row style={{backgroundColor: 'transparent', ...styles.descArtist}}>
-                                <Avatar source={this.props.image} size={constant.descArtistAvatarSize} rounded containerStyle={common.backgroundGray} />
-                                <Text allowFontScaling={false} style={styles.descArtistName}>
+                        <Row style={styles.artistLikeShareContainer}>
+                            <Row style={styles.artistWrap}>
+                                <Avatar source={this.props.image} size={constant.artistAvatarSize} rounded containerStyle={common.backgroundGray} />
+                                <Text allowFontScaling={false} style={styles.artistText}>
                                     {this.props.artist}
                                 </Text>
                             </Row>
-                            <Row style={{backgroundColor: 'transparent', justifyContent: 'flex-end', alignItems: 'center'}}>
-                                <Icons name={'ic_like'} size={constant.descIconSize} style={styles.descIcon} />
-                                <Icons name={'ic_share'} size={constant.descIconSize} style={styles.descIcon} />
+                            <Row style={styles.likeShareWrap}>
+                                <Icons name={'ic_like'} size={constant.likeShareIconSize} style={styles.likeShareIcon} />
+                                <Icons name={'ic_share'} size={constant.likeShareIconSize} style={styles.likeShareIcon} />
                             </Row>
                         </Row>
 
-                        <Row style={{backgroundColor: 'transparent', height: 102, width: '100%'}}>
-                            <Col style={{...styles.descContainer}}>
-                                <Row style={styles.descArtistContainer}>
-                                    <Text style={{
-                                        height: 12,
-                                        fontSize: 10,
-                                        fontWeight: "normal",
-                                        fontStyle: "normal",
-                                        letterSpacing: 0,
-                                        color: "#ffffff"
-                                    }}>
-                                    좋아요 <Text style={{fontWeight: 'bold', paddingLeft: 4}}>214</Text>개
-                                    </Text>
-                                </Row>
-                                <Row style={styles.descTitleContainer}>
-                                    <Text allowFontScaling={false}  style={{
-                                        height: 22,
-                                        fontSize: 15,
-                                        fontWeight: "bold",
-                                        fontStyle: "normal",
-                                        lineHeight: 22,
-                                        letterSpacing: 0,
-                                        color: "#ffffff"
-                                    }}>
+                        {/* 좋아요 개수 곡 타이틀 */}
+                        <Col style={styles.likeCountTitleContainer}>
+                            <Row style={styles.likeCountContainer}>
+                                <Text allowFontScaling={false} style={styles.likeCountText}>
+                                좋아요 <Text style={styles.likeCountCount}>214</Text>개
+                                </Text>
+                            </Row>
+                            <Row style={styles.titleContainer}>
+                                <Text allowFontScaling={false}  style={styles.titleText}>
                                     {this.props.title}
-                                    </Text>
-                                </Row>
-
-                                <Row style={styles.descHashTagContainer}>
-                                    
-                                    <View style={{
-                                        marginTop: 2,
-                                        height: 24,
-                                        opacity: 0.1,
-                                        alignItems: 'center',
-                                        borderRadius: 12,
-                                        justifyContent: 'center',
-                                        backgroundColor: '#ffffff'
-                                        }}>
-                                        <Text allowFontScaling={false} style={{color: "rgba(255,255,255,0.9)", ...styles.descHashTag}}>
-                                            #hiphop&rap 
+                                </Text>
+                            </Row>
+                        </Col>
+                        {/* 태그 */}
+                        <Row style={styles.hashTagContainer}>
+                            {this.props.tags.map((tag, i) => {
+                                return (
+                                    <View style={styles.hashTagWrap} key={i}>
+                                        <Text allowFontScaling={false} style={styles.hashTagText}>
+                                            #{tag.length > 20 ? tag.substring(0, 20) + "...": tag}
                                         </Text>
                                     </View>
-                                    
-                                    
-                                </Row>
-                            </Col>
+                                )
+                            })}
+                            
                         </Row>
                     </Col>
                     
@@ -140,15 +110,15 @@ class RecordList extends Component {
         return (
             <Grid>
                 <Col>
-                    <Record title={"미안해 (Feat. Beenzino)"} artist={"자이언티 (Zion. T)"} image={require('../assets/img/sample.jpg')} buttonColor={'white'} picker={this.refs.picker} />
-                    <Record title={"FREQUENCY (feat Phil McClain)"} artist={"Johnny Balik"} image={require('../assets/img/cover.png')} buttonColor={'white'} picker={this.refs.picker}/>
-                    <Record title={"미안해 (Feat. Beenzino)"} artist={"자이언티 (Zion. T)"} image={require('../assets/img/sample.jpg')} buttonColor={'white'} picker={this.refs.picker} />
-                    <Record title={"FREQUENCY (feat Phil McClain)"} artist={"Johnny Balik"} image={require('../assets/img/cover.png')} buttonColor={'red'} picker={this.refs.picker} />
-                    <Record title={"미안해 (Feat. Beenzino)"} artist={"자이언티 (Zion. T)"} image={require('../assets/img/sample.jpg')} buttonColor={'white'} picker={this.refs.picker} />
-                    <Record title={"FREQUENCY (feat Phil McClain)"} artist={"Johnny Balik"} image={require('../assets/img/cover.png')} buttonColor={'red'} picker={this.refs.picker} />
-                    <Record title={"미안해 (Feat. Beenzino)"} artist={"자이언티 (Zion. T)"} image={require('../assets/img/sample.jpg')} buttonColor={'white'} picker={this.refs.picker} />
-                    <Record title={"FREQUENCY (feat Phil McClain)"} artist={"Johnny Balik"} image={require('../assets/img/cover.png')} buttonColor={'red'} picker={this.refs.picker} />
-                    <Record title={"미안해 (Feat. Beenzino)"} artist={"자이언티 (Zion. T)"} image={require('../assets/img/sample.jpg')} buttonColor={'white'} picker={this.refs.picker} />
+                    <Record tags={['Hiphop&Rap','RnB', '소울', '알엔비','소울', '소울', '소울', '이국적', '자기전에생각나는곡꼭들어야하는그런곡내마음의심금을울리는곡', '지려버리곡']} title={"미안해 (Feat. Beenzino)"} artist={"자이언티 (Zion. T)"} image={require('../assets/img/sample.jpg')} buttonColor={'white'} picker={this.refs.picker} />
+                    <Record tags={['알엔비','소울', '이국적']} title={"FREQUENCY (feat Phil McClain)"} artist={"Johnny Balik"} image={require('../assets/img/cover.png')} buttonColor={'white'} picker={this.refs.picker}/>
+                    <Record tags={['이별','발라드',]} title={"미안해 (Feat. Beenzino)"} artist={"자이언티 (Zion. T)"} image={require('../assets/img/sample.jpg')} buttonColor={'white'} picker={this.refs.picker} />
+                    <Record tags={['여름에어울리는곡', 'Hiphop&Rap','RnB', '소울', '알엔비','소울', '이국적']}title={"FREQUENCY (feat Phil McClain)"} artist={"Johnny Balik"} image={require('../assets/img/cover.png')} buttonColor={'red'} picker={this.refs.picker} />
+                    <Record tags={['이별','발라드',]} title={"미안해 (Feat. Beenzino)"} artist={"자이언티 (Zion. T)"} image={require('../assets/img/sample.jpg')} buttonColor={'white'} picker={this.refs.picker} />
+                    <Record tags={['알엔비','소울', '이국적']} title={"FREQUENCY (feat Phil McClain)"} artist={"Johnny Balik"} image={require('../assets/img/cover.png')} buttonColor={'red'} picker={this.refs.picker} />
+                    <Record tags={['알엔비','소울', '이국적']} title={"미안해 (Feat. Beenzino)"} artist={"자이언티 (Zion. T)"} image={require('../assets/img/sample.jpg')} buttonColor={'white'} picker={this.refs.picker} />
+                    <Record tags={['알엔비','소울', '이국적']} title={"FREQUENCY (feat Phil McClain)"} artist={"Johnny Balik"} image={require('../assets/img/cover.png')} buttonColor={'red'} picker={this.refs.picker} />
+                    <Record tags={['알엔비','소울', '이국적']} title={"미안해 (Feat. Beenzino)"} artist={"자이언티 (Zion. T)"} image={require('../assets/img/sample.jpg')} buttonColor={'white'} picker={this.refs.picker} />
                 </Col>
             </Grid>
         );

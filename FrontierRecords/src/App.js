@@ -32,7 +32,7 @@ const iconNameSet = {
     Home: "ic_home_default",
     HomeActive: "ic_home_selected",
     Detail: "ic_search_default",
-    DetailActive: "ic_search_default",
+    DetailActive: "ic_search_selected",
     MusicDetail: "ic_noti_default",
     MusicDetailActive: "ic_noti_selected",
     Settings: "ic_my_default",

@@ -9,14 +9,14 @@
   },
   "dependencies": {
     "native-base": "^2.12.1",
-    "react": "16.6.3",
-    "react-native": "0.58.6",
-    "react-native-button": "^2.3.0",
+    "react": "^16.8.3",
+    "react-native": "0.59.8",
+    "react-native-button": "^2.4.0",
     "react-native-elements": "^1.1.0",
-    "react-native-gesture-handler": "^1.1.0",
-    "react-native-text-gradient": "^0.0.16",
-    "react-native-vector-icons": "^6.4.1",
-    "react-navigation": "^3.3.2"
+    "react-native-gesture-handler": "^1.2.1",
+    "react-native-text-gradient": "^0.1.5",
+    "react-native-vector-icons": "^6.4.2",
+    "react-navigation": "^3.11.0"
   },
   "devDependencies": {
     "babel-core": "^7.0.0-bridge.0",
@@ -24,9 +24,13 @@
     "jest": "24.5.0",
     "metro-react-native-babel-preset": "0.53.0",
     "react-test-renderer": "16.6.3",
-    "reactotron-react-native": "^3.2.1"
+    "reactotron-react-native": "^3.5.3"
   },
-  "rnpm": { "assets": [ "resources/fonts" ] },
+  "rnpm": {
+    "assets": [
+      "resources/fonts"
+    ]
+  },
   "jest": {
     "preset": "react-native"
   }
